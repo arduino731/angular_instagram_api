@@ -1,0 +1,100 @@
+<div class="row" ng-controller="userController" ng-init="getUserProfile()">
+    
+    <div class="col-md-2">
+        <div id="sidebar-wrapper">
+            <div collapse="isCollapsed" ng-show="user">
+                <div class="well well-sm">
+                    <img ng-src="{{user.profile_picture}}">
+                    <span class="label label-primary">{{user.full_name}}</span>
+
+                    <p>{{user.bio}}</p>
+                </div>
+                <div class="btn-group" role="group" ng-if="!isOwn(user.id) && isLoggedIn()">
+                    <button type="button" class="btn btn-danger" ng-click="relationship(user.id, 'unfollow');relationshipData.following = false" ng-if="relationshipData.following">UnFollow</button>
+                    <button type="button" class="btn btn-primary" ng-click="relationship(user.id, 'follow');relationshipData.following = true" ng-if="!relationshipData.following">Follow</button>
+                </div>
+            </div>
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand text-center">
+                    {{userName}}
+                </li>
+                <li ng-show="user">
+                    <a ng-click="getFollowedBy();">Followers <span class="badge inline pull-right">{{user.counts.followed_by}}</span></a>
+                </li>
+                <li ng-show="user">
+                    <a ng-click="getFollows();">Following <span class="badge inline pull-right">{{user.counts.follows}}</span></a>
+                </li>
+                <li ng-show="user">
+                    <a ng-click="getRecentMedia();">Media <span class="badge inline pull-right">{{user.counts.media}}</span></a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+    
+    <!-- Media Grid -->
+    <div class="col-md-10" ng-show="isLayout('getRecentMedia')">
+
+            <div class="col-md-3" ng-repeat="image in images | unique:'id'">
+                <div class="thumbnail">
+                    <a class="thumbnail" ng-href="#media/{{image.id}}/{{image.type}}">
+                        <img ng-src="{{image.images.low_resolution.url}}">
+                    </a>
+                    <div class="caption">
+                        <p class="text-center">{{image.created_time * 1000 | date:'MMM d, y HH:mm:ss'}}</p>
+                        <span class="glyphicon glyphicon-thumbs-up"> {{image.likes.count}}</span>
+                        <span class="glyphicon glyphicon-pencil pull-right"> {{image.comments.count}}</span>
+                    </div>
+                </div>
+            </div>
+
+    </div>
+    
+    <!--Followers and Following-->
+    <div class="col-md-10" ng-show="!isLayout('getRecentMedia')">
+
+        <div class="row container-fluid">
+
+            <ul class="list" class="col-md-12" ng-show="isLayout('getFollows')">
+
+                <li ng-repeat="f in follows | unique:'id'">
+
+                    <div class="pull-left">
+                    <a ng-href="#user/{{f.id}}/{{f.username}}"><img ng-src="{{f.profile_picture}}"/></a>
+                    <p>{{f.full_name}}</p>
+                    <p>{{f.bio}}</p>
+                    </div>
+
+                    <div class="btn-group pull-right" role="group" ng-if="isOwn(user.id)">
+
+                        <button type="button" class="btn btn-danger" ng-click="relationship(f.id, 'unfollow');f.unFollowShow=true;f.toBeFollowing=true" ng-if="!f.unFollowShow">UnFollow</button>
+
+                        <button type="button" class="btn btn-primary" ng-click="relationship(f.id, 'follow');f.unFollowShow=false;f.toBeFollowing=false" ng-if="f.toBeFollowing">Follow</button>
+
+                    </div>
+
+                </li>
+
+            </ul>
+
+            <ul class="list" class="col-md-12" ng-show="isLayout('getFollowedBy')">
+
+                <li ng-repeat="f in followedBy | unique:'id'">
+
+                    <div class="pull-left">
+                    <a ng-href="#user/{{f.id}}/{{f.username}}"><img ng-src="{{f.profile_picture}}"/></a>
+                    <p>{{f.full_name}}</p>
+                    <p>{{f.bio}}</p>
+                    </div>
+
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+    
+    <div error></div>
+    <div load-more></div>
+</div>

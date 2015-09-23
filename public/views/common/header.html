@@ -1,0 +1,26 @@
+<nav ng-controller="navController" class='navbar navbar-fixed-top'>
+	<div class='container-fluid'>
+		<div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar">-</span>
+            <span class="icon-bar">-</span>
+            <span class="icon-bar">-</span>
+          </button>
+          <a class="navbar-brand" href="#">Project name</a>
+        </div>
+        
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav topnav navbar-left ">
+            <li><a href="#/" class="fa fa-home fa-3x">&nbsp;</a></li>
+            <li><a href="#/popular" ng-class="{'topnav_active': $state.current.name == 'popular' }">Popular</a></li>
+            <li><a href="#/searchUser" ng-class="{'topnav_active': $state.current.name == 'searchUser' }">Search</a></li>
+            <li><a href="#/contact" ng-class="{'topnav_active': $state.current.name == 'contact' }">Contact</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+
+        <ul class="nav navbar-nav navbar-right" style="margin-right: 0px;" ng-show="isLoggedIn()">
+			<h4>userRequests.length</h4>
+        </ul>
+	</div>
+</nav>

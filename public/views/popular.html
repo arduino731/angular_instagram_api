@@ -1,0 +1,17 @@
+<div ng-controller='popularController' ng-init="refresh()">
+    <div class="row container-fluid">
+        <div class="bar col-md-12">
+            <a class="fa fa-th fa-2x" ng-class="{active: isLayout('grid')}" ng-click="setLayout('grid')"></a>
+            <a class="fa fa-list  fa-2x" ng-class="{active: isLayout('list')}" ng-click="setLayout('list')"></a>
+            <a class="fa fa-refresh fa-2x" ng-click="refresh()"></a>
+        </div>
+            <ul ng-class="{ 'grid': isLayout('grid'), 'list' : isLayout('list') }" class="col-md-12">
+                <li ng-repeat="p in popularImages" ng-class="{ 'col-md-3' : isLayout('grid') }" >
+                       <div ng-class="{ 'thumbnail' : isLayout('grid')}">
+                            <a ng-href="#media/{{p.id}}/{{p.type}}"><img ng-src="{{p.images.low_resolution.url}}" class="img-response" /></a>
+                       </div>
+                    <p ng-show="isLayout('list')" class="text-center">{{p.caption.text}}</p>
+                </li>
+            </ul>
+    </div>
+</div>
