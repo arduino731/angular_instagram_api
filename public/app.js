@@ -7,8 +7,8 @@ var app = angular
     'Authentication',
     'directives', 
     'ngCookies',
-    'ui.unique'
-    // 'uiGmapgoogle-maps'
+    'ui.unique',
+    'uiGmapgoogle-maps'
     ]);
 
 app.constant('instagramApiConfig', {
@@ -59,6 +59,41 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
             templateUrl: "views/searchUser.html",
             data: {pageTitle: 'Search User', pageSubTitle: ''},
             controller: "UserSearchController"
+        })
+        
+        .state('searchTag', {
+            url: "/searchTag",
+            templateUrl: "views/searchTag.html",
+            data: {pageTitle: 'Search Tag', pageSubTitle: ''},
+            controller: "searchTagController"
+        })
+        
+        .state("tag", {
+            url: "/tag/:tagName",
+            templateUrl: "views/tag.html",
+            data: {pageTitle: 'Tag', pageSubTitle: ''},
+            controller: "tagController"
+        })
+        
+        .state('searchMap', {
+            url: "/searchMap",
+            templateUrl: "views/searchMap.html",
+            data: {pageTitle: 'Search Map', pageSubTitle: ''},
+            controller: "searchMapController"
+        })
+        
+        .state("login", {
+            url: "/login/:accessToken",
+            templateUrl: "views/login.html",
+            data: {pageTitle: 'Login', pageSubTitle: ''},
+            controller: "loginController"
+        })
+        
+        .state("contact", {
+            url: "/contact",
+            templateUrl: "views/contact.html",
+            data: {pageTitle: 'Contact', pageSubTitle: ''},
+            controller: "contactController"
         })
 }]);
 

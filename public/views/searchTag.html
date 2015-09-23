@@ -1,0 +1,16 @@
+<div ng-controller="searchTagController">
+    <div class="input-group">
+        <span class="input-group-addon" id="basic-addon1">#</span>
+        <input type="text" class="form-control" placeholder="type tag and press enter"
+               aria-describedby="basic-addon1" ng-model="tag" ng-change="search()">
+    </div>
+    
+    <ul class="list" style="width:auto;">
+        <li ng-repeat="tag in tags">
+            <a href="#tag/{{tag.name}}">{{tag.name}} 
+                <span style="text-decoration:none; color:black;"> ( Pictures count : {{tag.media_count}})</span>
+            </a>
+        </li>
+    </ul>
+    
+</div>

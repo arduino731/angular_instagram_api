@@ -14,7 +14,10 @@
           <ul class="nav navbar-nav topnav navbar-left ">
             <li><a href="#/" class="fa fa-home fa-3x">&nbsp;</a></li>
             <li><a href="#/popular" ng-class="{'topnav_active': $state.current.name == 'popular' }">Popular</a></li>
-            <li><a href="#/searchUser" ng-class="{'topnav_active': $state.current.name == 'searchUser' }">Search</a></li>
+            <li><a href="#/searchUser" ng-class="{'topnav_active': $state.current.name == 'searchUser' }">Search Username</a></li>
+            <li><a href="#/searchTag" ng-class="{'topnav_active': $state.current.name == 'searchTag' }">Search Tag</a></li>
+            <li><a href="#/searchMap" ng-class="{ 'topnav_active': $state.current.name == 'searchMap' }">Search on Google Maps</a>
+            </li>
             <li><a href="#/contact" ng-class="{'topnav_active': $state.current.name == 'contact' }">Contact</a></li>
           </ul>
         </div><!--/.nav-collapse -->
@@ -22,5 +25,66 @@
         <ul class="nav navbar-nav navbar-right" style="margin-right: 0px;" ng-show="isLoggedIn()">
 			<h4>userRequests.length</h4>
         </ul>
+        <!--<ul class="nav navbar-nav navbar-right" style="margin-right: 0px;" ng-show="isLoggedIn()">-->
+
+        <!--    <li dropdown ng-show="userRequests.length">-->
+        <!--    <a href="#" class="dropdown-toggle" dropdown-toggle>-->
+        <!--    <span class="glyphicon glyphicon-bell" style="margin-right:5px;"></span>Requests <span class="label label-primary">{{userRequests.length}}</span>-->
+        <!--    </a>-->
+        <!--        <ul class="dropdown-menu" style="min-width: 250px;">-->
+        <!--            <li ng-repeat="request in userRequests">-->
+        <!--                <img class="img-circle" ng-src="{{request.profile_picture}}" style="width: 50px;margin-left: 10px;">-->
+        <!--                <span class="label label-primary">{{request.username}}</span>-->
+        <!--                <span class="glyphicon glyphicon-ok-circle"></span>-->
+        <!--                <span class="glyphicon glyphicon-ban-circle"></span>-->
+        <!--            </li>-->
+        <!--        </ul>-->
+        <!--    </li>-->
+
+        <!--    <li dropdown is-open="status.isopen">-->
+
+        <!--        <a href="#" class="dropdown-toggle" dropdown-toggle ng-disabled="disabled" style="padding-top: 8px;padding-bottom: 6px;">-->
+        <!--        <img ng-src="{{user.profile_picture}}" class="img-circle" style="width: 35px;margin-right: 10px;">-->
+        <!--        <strong>{{user.username}}</strong>-->
+        <!--        <span class="glyphicon glyphicon-chevron-down"></span>-->
+        <!--        </a>-->
+
+        <!--        <ul class="dropdown-menu">-->
+        <!--            <li>-->
+        <!--                <div class="navbar-login">-->
+        <!--                    <div class="row">-->
+        <!--                        <div class="col-lg-4">-->
+        <!--                            <p class="text-center">-->
+        <!--                                <a ng-href="#/user/{{user.userId}}/{{user.username}}">-->
+        <!--                                <img ng-src="{{user.profile_picture}}" class="img-circle" style="width: 84px;margin-right: 10px;">-->
+        <!--                                </a>-->
+        <!--                            </p>-->
+        <!--                        </div>-->
+        <!--                        <div class="col-lg-8">-->
+        <!--                            <p class="text-left"><strong>{{user.full_name}}</strong></p>-->
+        <!--                            <p class="text-left small">{{user.bio}}</p>-->
+        <!--                            <p class="text-left">-->
+        <!--                                <a href="" class="btn btn-primary btn-block btn-sm" ng-click="refresh()">Refresh</a>-->
+        <!--                            </p>-->
+        <!--                        </div>-->
+        <!--                    </div>-->
+        <!--                </div>-->
+        <!--            </li>-->
+        <!--            <li class="divider"></li>-->
+        <!--            <li>-->
+        <!--                <div class="navbar-login navbar-login-session">-->
+        <!--                    <div class="row">-->
+        <!--                        <div class="col-lg-12">-->
+        <!--                            <p>-->
+        <!--                                <a href="#" class="btn btn-danger btn-block" ng-click="signOut()">Sign Out</a>-->
+        <!--                            </p>-->
+        <!--                        </div>-->
+        <!--                    </div>-->
+        <!--                </div>-->
+        <!--            </li>-->
+        <!--        </ul>-->
+        <!--    </li>-->
+
+        <!--</ul>-->
 	</div>
 </nav>

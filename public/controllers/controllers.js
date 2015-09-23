@@ -235,6 +235,239 @@ angular
         };
     }])
     
-    .controller('UserSearchController' , ['$scope', function($scope){
+    .controller('UserSearchController' , ['$scope','instagramApi', function($scope, instagramApi ){
+        $scope.users = [];
+        $scope.serviceMeta = {};
+        $scope.search = function () {
+            instagramApi.searchUser($scope.username, function (response) {
+                console.log(response);
+                $scope.serviceMeta = response.meta;
+                $scope.users = response.data;
+            });
+    }
+    }])
+    
+    .controller('searchTagController'  , ['$scope','instagramApi', function($scope, instagramApi ){
+        
+        $scope.search = function(){
+            $scope.tags = [];
+            $scope.serviceMeta ={};
+            instagramApi.searchTags($scope.tag, function(response){
+                console.log(response);
+                $scope.tags = response.data;
+                $scope.serviceMeta = response.meta;
+            })
+        }
+    }])
+    
+    .controller('tagController', ['$scope', 'instagramApi', '$stateParams', function ($scope, instagramApi, $stateParams) {
+        
+        $scope.tagName = $stateParams.tagName;
+        $scope.serviceMeta = {};
+        $scope.images = [];
+        
+        $scope.getTagMedia = function(){
+            instagramApi.getTagMedia($scope.tagName, function(response){
+                console.log(response);
+                $scope.next_max_id = response.pagination.next_max_id;
+                $scope.serviceMeta = response.meta;
+                $scope.images = response.data;
+            })
+        }
         
     }])
+    
+    .controller('searchMapController',['$scope', 'instagramApi', '$interval', function ($scope, instagramApi, $interval) {
+
+    $scope.serviceMeta = {};
+
+    $scope.images = [];
+
+    $scope.map = {center: {latitude: 48.85837, longitude: 2.294481 }, zoom: 14 };
+    $scope.options = {scrollwheel: true};
+    $scope.circle =
+        {
+            center: {
+                latitude: $scope.map.center.latitude,
+                longitude: $scope.map.center.longitude
+            },
+            radius: 500,
+            stroke: {
+                color: '#08B21F',
+                weight: 2,
+                opacity: 1
+            },
+            fill: {
+                color: '#08B21F',
+                opacity: 0.5
+            },
+            geodesic: true, // optional: defaults to false
+            draggable: true, // optional: defaults to false
+            clickable: true, // optional: defaults to true
+            editable: true, // optional: defaults to false
+            visible: true, // optional: defaults to true
+            control: {},
+            events: {
+            radius_changed: function (circle) {
+
+                $scope.createInterval();
+
+                },
+
+                dragend : function(){
+
+                $scope.clearAll();
+
+                    $scope.createInterval();
+
+                }
+            }
+
+        }
+
+    $scope.min_timestamp = "";
+
+    $scope.getMediaByLocation = function(){
+
+        instagramApi.getMediaByLocation($scope.circle.center.latitude, $scope.circle.center.longitude, $scope.circle.radius, $scope.min_timestamp, function(response){
+
+            $scope.serviceMeta = response.meta;
+
+            $scope.images = $scope.images.concat(response.data);
+
+            if(response.data.length > 0) {
+                $scope.min_timestamp = response.data.pop().created_time;
+            }
+
+        });
+
+    }
+
+    $scope.clearAll = function(){
+
+        $scope.images = [];
+
+    }
+
+    $scope.layout = "list";
+
+    $scope.isLayout = function (layout) {
+        return $scope.layout == layout;
+    }
+
+    $scope.setLayout = function(layout){
+        $scope.layout = layout;
+    }
+
+    $scope.refreshInterval = 10;
+
+    $scope.$watch('refreshInterval', function(newVal,oldVal) {
+        if (newVal !== oldVal) {
+            if(angular.isNumber($scope.refreshInterval) && $scope.refreshInterval != 0) {
+                $scope.createInterval();
+
+            }
+        }
+    });
+
+    $scope.createInterval = function(){
+
+        $scope.cancelInterval();
+
+        $scope.getMediaByLocation();
+
+        $scope.interval = $interval(function(){
+
+            $scope.createProgressBarInterval();
+
+            $scope.getMediaByLocation();
+
+        }, $scope.refreshInterval * 1000);
+
+        $scope.createProgressBarInterval();
+
+    }
+
+    $scope.cancelInterval = function(){
+
+        $scope.min_timestamp = "";
+
+        $interval.cancel($scope.interval);
+
+        $scope.clearAll();
+
+    }
+
+    $scope.searchbox = { template:'views/templates/mapSearchBox.html', events:{
+        places_changed: function (searchBox) {
+
+            var place = searchBox.getPlaces();
+            if (!place || place == 'undefined' || place.length == 0) {
+                return;
+            }
+
+            $scope.map = {
+                "center": {
+                    "latitude": place[0].geometry.location.lat(),
+                    "longitude": place[0].geometry.location.lng()
+                }
+            };
+
+            $scope.circle.center.latitude = place[0].geometry.location.lat();
+            $scope.circle.center.longitude = place[0].geometry.location.lng();
+
+            $scope.createInterval();
+
+        }
+    }};
+
+    $scope.progress = 0;
+
+    $scope.progressPiece = 11;
+
+    $scope.createProgressBarInterval = function(){
+
+        $scope.clearProgressBarInterval();
+
+        $scope.progressBarInterval = $interval(function(){
+
+                $scope.progress = $scope.progress + $scope.progressPiece;
+
+        }, $scope.refreshInterval * 100);
+
+    }
+
+    $scope.clearProgressBarInterval = function(){
+
+        $scope.progress = 0;
+
+        $interval.cancel($scope.progressBarInterval);
+
+    }
+
+
+}])
+
+    .controller('loginController', function ($scope, $stateParams, AuthenticationService, instagramApi, $location) {
+
+    $scope.$on('$viewContentLoaded', function () {
+
+        $scope.accessToken = $stateParams.accessToken;
+
+        AuthenticationService.setAuth($scope.accessToken);
+
+        AuthenticationService.getUserSelf(function (response) {
+
+            $scope.serviceMeta = response.meta;
+
+            $location.path("/#");
+
+        });
+
+    });
+
+})
+
+    .controller('contactController', ['$scope', function($scope){
+        
+    }]);

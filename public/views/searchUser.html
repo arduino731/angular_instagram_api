@@ -1,4 +1,40 @@
 <div ng-controller="UserSearchController">
-    userSerach
+    <div class="text-center">
+        <h1>Username Search</h1>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-offset-4 col-md-4">
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">@</span>
+                <input type="text" class="form-control" placeholder="type username and press enter" 
+                    aria-describedby="basic-addon1" ng-model="username" ng-change="search()"> 
+            </div>
+        </div>
+    </div>
+    
+    <!--<div class="input-group">-->
+    <!--    <span class="input-group-addon" id="basic-addon1">@</span>-->
+    <!--    <input type="text" class="form-control" placeholder="type username and press enter" -->
+    <!--        aria-describedby="basic-addon1" ng-model="username" ng-change="search()"> -->
+    <!--</div>-->
+    
+    <ul class="list" style="width:auto;">
 
+        <li ng-repeat="user in users" class="text-center">
+            <a href="#user/{{user.id}}/{{user.username}}"><img ng-src="{{user.profile_picture}}"/>
+
+            <p>{{user.username}}</p>
+
+            <p>{{user.full_name}}</p>
+
+            <p>{{user.bio}}</p>
+
+            <p>{{user.website}}</p>
+            </a>
+        </li>
+    </ul>    
+ 
+    
+    <div error></div>
 </div>
