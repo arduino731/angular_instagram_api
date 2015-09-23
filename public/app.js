@@ -16,6 +16,7 @@ app.constant('instagramApiConfig', {
         clientId: '542793a8fad940628066da8035e1098f',
         // callback: 'http://localhost:3000/callback.html'
         callback: 'http://angular-instagram-api.herokuapp.com/callback.html'
+        // callback:'https://preview.c9.io/ironheartbj18/angular-instagram-api/public/callback.html?_c9_id=livepreview4'
     }
 );
 
