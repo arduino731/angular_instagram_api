@@ -4,20 +4,55 @@ angular
 
     .controller('AppController', ['$rootScope','$scope','$state','AuthenticationService','instagramApi', function($rootScope, $scope, $state, AuthenticationService, instagramApi){
 
+    $scope.isLoggedIn = function(){
+
+        if(AuthenticationService.isLoggedIn()){
+
+            return true;
+
+        }else{
+            return false;
+        }
+
+    };
     //common variables
-    // $rootScope.authLink = AuthenticationService.getAuthLink();
+    $rootScope.authLink = AuthenticationService.getAuthLink();
 
-    // if($rootScope.globals.currentUser) {
+    if($rootScope.globals.currentUser) {
 
-    //     AuthenticationService.getRequestedBy(function(response){
+        AuthenticationService.getRequestedBy(function(response){
 
-    //         $scope.serviceMeta = response.meta;
+            $scope.serviceMeta = response.meta;
 
-    //         $rootScope.userRequests = response.data;
+            $rootScope.userRequests = response.data;
 
-    //     });
+        });
 
-    // }
+    }
+    //common method
+    $scope.giveLike = function(mediaId){
+
+        instagramApi.giveLike(mediaId);
+
+    }
+
+    $scope.isOwn = function(userId){
+
+        if( $scope.isLoggedIn() ) {
+
+            if( AuthenticationService.getCurrentUser().userId == userId ) {
+
+                return true;
+
+            }
+
+        }else {
+
+            return false;
+
+        }
+
+    }
 	}])
 
     .controller('navController', ['$scope', 'AuthenticationService', '$location', function($scope, AuthenticationService, $location){
@@ -30,23 +65,45 @@ angular
 		    	}
 		}
 		
-// 		$scope.signOut = function(){
+		$scope.signOut = function(){
 
-//         AuthenticationService.ClearCredentials();
+        AuthenticationService.ClearCredentials();
 
-//         $location.path("/#");
+        $location.path("/#");
 
-//         };
+        };
     
-//         $scope.refresh = function(){
+        $scope.refresh = function(){
     
-//             AuthenticationService.getUserSelf();
+            AuthenticationService.getUserSelf();
     
-//         };
+        };
     }])
     
     .controller('IndexController', ['$scope', 'instagramApi', function($scope, instagramApi){
+        $scope.serviceMeta = {};
     
+        $scope.feed = [];
+    
+        $scope.refreshFeed = function(nextMaxId){
+    
+            instagramApi.userSelfFeed(function(response){
+    
+                $scope.serviceMeta = response.meta;
+    
+                $scope.feed = $scope.feed.concat(response.data);
+    
+                $scope.nextIterator = response.pagination.next_max_id;
+    
+            }, nextMaxId);
+    
+        };
+    
+        $scope.loadMore = function(){
+    
+            $scope.refreshFeed($scope.nextIterator);
+    
+        };
     }])
     
     .controller('popularController', ['$scope', 'instagramApi', function($scope, instagramApi){

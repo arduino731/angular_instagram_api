@@ -14,7 +14,8 @@ var app = angular
 app.constant('instagramApiConfig', {
         apiUrl: 'https://api.instagram.com/v1/',
         clientId: '542793a8fad940628066da8035e1098f',
-        callback: 'http://localhost:3000/callback.html'
+        // callback: 'http://localhost:3000/callback.html'
+        callback: 'http://angular-instagram-api.herokuapp.com/callback.html'
     }
 );
 
