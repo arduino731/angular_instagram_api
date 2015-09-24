@@ -68,15 +68,11 @@ angular
 		$scope.signOut = function(){
 
         AuthenticationService.ClearCredentials();
-
         $location.path("/#");
-
         };
     
         $scope.refresh = function(){
-    
             AuthenticationService.getUserSelf();
-    
         };
     }])
     

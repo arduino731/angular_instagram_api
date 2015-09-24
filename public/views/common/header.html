@@ -1,4 +1,5 @@
-<nav ng-controller="navController" class="navbar-fixed-top">
+<!--<nav ng-controller="navController" class="navbar-fixed-top">-->
+<nav ng-controller="navController" class="navbar navbar-fixed-top navbar-default" style="background-color:red;">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -8,7 +9,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a href="#/" class="fa fa-home fa-3x" ng-class="{ 'topnav_active': $state.current.name == 'index' }" style="text-decoration: none; padding-left: 10px;">&nbsp;</a>
+      <a href="#/" class="fa fa-home fa-3x" ng-class="{ 'topnav_active': $state.current.name == 'index' }" style="padding: 0px; text-decoration: none; padding-left: 10px;">&nbsp;</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -25,7 +26,7 @@
       </ul>
 
       
-      <ul class="nav navbar-nav navbar-right" style="margin-right: 0px;" ng-show="isLoggedIn()"  >
+      <ul class="nav navbar-nav navbar-right" style="margin-right: 0px;" ng-show="!isLoggedIn()"  >
         <li class="dropdown" ng-show="userRequests.length">
           <a href="#" class="dropdown-toggle" dropdown-toggle>
               <span class="glyphicon glyphicon-bell" style="margin-right:5px;"></span>Requests <span class="label label-primary">{{userRequests.length}}</span>
