@@ -39,6 +39,7 @@ angular.module('instagramService', []).factory('instagramApi', function ($http) 
 
     };
 
+    //users
     instagram.getUserSelf = function (callback) {
 
         endPoint = apiUrl + "users/self/?"+instagram.getAuth() + callbackString;
@@ -63,6 +64,7 @@ angular.module('instagramService', []).factory('instagramApi', function ($http) 
 
     };
 
+    //users
     instagram.getRecentMedia = function (userId, callback, nextIterator) {
 
         endPoint = apiUrl + "users/" + userId + "/media/recent/?" + instagram.getAuth() + callbackString;
@@ -77,6 +79,7 @@ angular.module('instagramService', []).factory('instagramApi', function ($http) 
 
     };
 
+    //users
     instagram.searchUser = function (username, callback) {
 
         endPoint = apiUrl + "users/search?q=" + username + "&" + instagram.getAuth() + callbackString;
@@ -87,6 +90,7 @@ angular.module('instagramService', []).factory('instagramApi', function ($http) 
 
     };
 
+    //media
     instagram.getUserLiked = function(callback){
 
         endPoint = apiUrl + "users/self/media/liked?" + instagram.getAuth() + callbackString;
@@ -132,6 +136,7 @@ angular.module('instagramService', []).factory('instagramApi', function ($http) 
 
     };
 
+    //realtionships
     instagram.getFollowedBy = function(userId, callback, nextIterator){
 
         if(userId == null) {userId = "self";}
@@ -148,6 +153,7 @@ angular.module('instagramService', []).factory('instagramApi', function ($http) 
 
     };
 
+    //realtionships
     instagram.getRequestedBy = function(callback){
 
         endPoint = apiUrl + "users/self/requested-by?" + instagram.getAuth() + callbackString;
@@ -158,6 +164,7 @@ angular.module('instagramService', []).factory('instagramApi', function ($http) 
 
     };
 
+    // relationships GET , POST
     instagram.relationship = function(userId, action, callback){
 
         if(action == "relationship"){
@@ -192,7 +199,8 @@ angular.module('instagramService', []).factory('instagramApi', function ($http) 
         });
 
     };
-
+    
+    //media
     instagram.getMedia = function (mediaId, callback) {
 
         endPoint = apiUrl + "media/" + mediaId + "?" + instagram.getAuth() + callbackString;
@@ -214,7 +222,8 @@ angular.module('instagramService', []).factory('instagramApi', function ($http) 
         });
 
     };
-
+    
+    //tags media recent
     instagram.getTagMedia = function (tagName, callback) {
 
         endPoint = apiUrl + "tags/" + tagName + "/media/recent?" + instagram.getAuth() + callbackString;
@@ -247,6 +256,7 @@ angular.module('instagramService', []).factory('instagramApi', function ($http) 
 
     };
 
+    //post likes 
     instagram.giveLike = function(mediaId){
 
         $http({
@@ -259,7 +269,7 @@ angular.module('instagramService', []).factory('instagramApi', function ($http) 
 
     };
 
-    //locations
+    //media locations
 
     instagram.getMediaByLocation = function(lat, lng, radius, minTimestamp, callback){
 
