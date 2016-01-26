@@ -38,7 +38,12 @@ ul.list li img {
 
 ul.list li p {
     font-weight: bold;
-    color: #6e7a7f;
+    color: black;
+    font-size: 1.5em;
+    background: white;
+    margin: 0 100px 0 200px;
+    border-radius: 5px;
+    border: solid 2px black;
 }
 .bar {
     background-color: #5c9bb7;

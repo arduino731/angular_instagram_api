@@ -198,3 +198,7 @@ social-box {
 
 .angular-google-map-container { height: 400px; }
 
+body {
+    background-image: url('../img/06.jpg');
+}
+
