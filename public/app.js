@@ -17,8 +17,7 @@ app.constant('instagramApiConfig', {
         // callback: 'http://localhost:3000/callback.html'
         callback: 'http://angular-instagram-api.herokuapp.com/callback.html'
         // callback:'https://preview.c9.io/ironheartbj18/angular-instagram-api/public/callback.html?_c9_id=livepreview4'
-    }
-);
+});
 
 
 app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
