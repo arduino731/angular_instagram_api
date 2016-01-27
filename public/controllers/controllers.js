@@ -68,7 +68,8 @@ angular
 		$scope.signOut = function(){
 
         AuthenticationService.ClearCredentials();
-        $location.path("/#");
+        $location.path("#/index");
+        
         };
     
         $scope.refresh = function(){
